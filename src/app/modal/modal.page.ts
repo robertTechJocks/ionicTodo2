@@ -9,8 +9,8 @@ import { ModalController } from '@ionic/angular';
 })
 export class ModalPage implements OnInit {
     todo = {
-        name: '',
-        details: '',
+        taskName: '',
+        taskDetails: '',
         dueDate: ''
     };
 
