@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ModalPage } from '../modal/modal.page';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 export interface Item { email: string; }
@@ -19,9 +19,9 @@ export interface Task {
 })
 export class Tab1Page {
   private userDoc: AngularFirestoreDocument<Item>;
-  private tasks: AngularFirestoreDocument<Item>;
 
   item: Observable<Item>;
+  tasks: Observable<Task[]>;
 
     constructor(public modalController: ModalController, public afAuth: AngularFireAuth, public afs: AngularFirestore) {
       this.afAuth.user.subscribe(user => {
