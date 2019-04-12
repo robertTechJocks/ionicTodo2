@@ -23,6 +23,10 @@ export class Tab1Page {
 
   item: Observable<Item>;
   tasks: Observable<Task[]>;
+  loginCreds = {
+    email: '',
+    password: '',
+  }
 
     constructor(public modalController: ModalController, public afAuth: AngularFireAuth, public afs: AngularFirestore) {
       this.afAuth.user.subscribe(user => {
@@ -36,23 +40,27 @@ export class Tab1Page {
     async presentModal() {
       const modal = await this.modalController.create({
         component: ModalPage,
-        componentProps: { tasks: this.tasksCollection, val: "hello world" }
+        componentProps: { tasks: this.tasksCollection }
       });
       return await modal.present();
     }
 
     login() {
-      this.afAuth.auth.signInWithEmailAndPassword("robert@tech-jocks.com", "F!5eagle").catch(function(error){
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        if (errorCode === 'auth/wrong-password') {
-          alert('Wrong password.');
-        } else {
-          alert(errorMessage);
-        }
-        console.log(error);
-      });
-      console.log(this.afAuth.user);
+      console.log(this.loginCreds);
+      if(this.loginCreds.email && this.loginCreds.password)
+      {
+        this.afAuth.auth.signInWithEmailAndPassword(this.loginCreds.email, this.loginCreds.password).catch(function(error){
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          if (errorCode === 'auth/wrong-password') {
+            alert('Wrong password.');
+          } else {
+            alert(errorMessage);
+          }
+          console.log(error);
+        });
+        console.log(this.afAuth.user);
+      }
     }
     logout() {
       this.afAuth.auth.signOut();

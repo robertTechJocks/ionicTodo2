@@ -1,8 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab One
+    <ion-title *ngIf="afAuth.user | async as user; else loggedOut">
+      Listify
     </ion-title>
+    <ng-template #loggedOut>
+      <ion-title>
+        Please Login
+      </ion-title>
+    </ng-template>
   </ion-toolbar>
 </ion-header>
 
@@ -32,9 +37,20 @@
       </ion-item>
     </ion-list>
         <button (click)="logout()">Logout</button>
-      </div>
-      <ng-template #showLogin>
-        <p>Please login.</p>
-        <button (click)="login()">Login with Google</button>
-      </ng-template>
+    </div>
+    <ng-template #showLogin>
+      <form id="loginForm">
+        <ion-list>
+            <ion-item>
+              <ion-label position="stacked">Email</ion-label>
+              <ion-input [(ngModel)]="loginCreds.email" name="email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Password</ion-label>
+              <ion-input [(ngModel)]="loginCreds.password" name="password" type="password"></ion-input>
+            </ion-item>
+            <ion-button (click)="login()" expand="full">Login</ion-button>
+        </ion-list>
+    </form>
+    </ng-template>
 </ion-content>
