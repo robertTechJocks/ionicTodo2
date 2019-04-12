@@ -25,7 +25,7 @@
       <ion-list-header>
         <ion-label>To Do:</ion-label>
       </ion-list-header>
-      <ion-item *ngFor="let task of tasks | async">
+      <ion-item *ngFor="let task of tasks | async | datefilter">
           <ion-label text-wrap>
             {{ task.name }} <br> {{ task.details }}
           </ion-label>

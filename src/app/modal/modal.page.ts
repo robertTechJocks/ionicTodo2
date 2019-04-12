@@ -1,6 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AngularFirestoreCollection } from '@angular/fire/firestore';
 import { ModalController } from '@ionic/angular';
 
+
+export interface Task {
+  details: string;
+  name: string;
+  due: string;
+}
 
 @Component({
   selector: 'app-modal',
@@ -8,21 +15,23 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./modal.page.scss'],
 })
 export class ModalPage implements OnInit {
+    @Input() tasks: AngularFirestoreCollection<Task>;
+    @Input() val: string;
     todo = {
-        taskName: '',
-        taskDetails: '',
-        dueDate: ''
+        name: '',
+        details: '',
+        due: ''
     };
 
-  constructor() {
+  constructor(private modalController: ModalController) {
   }
 
   ngOnInit() {
-      console.log('hello world');
   }
 
   addTask() {
-    console.log(this.todo);
+      this.tasks.add(this.todo);
+      this.modalController.dismiss();
     }
 
 }

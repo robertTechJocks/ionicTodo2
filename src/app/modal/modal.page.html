@@ -9,15 +9,15 @@
         <ion-list>
             <ion-item>
                 <ion-label position="stacked">Task Name</ion-label>
-                <ion-input [(ngModel)]="todo.taskName" name="name"></ion-input>
+                <ion-input [(ngModel)]="todo.name" name="name"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">Task Details</ion-label>
-                <ion-textarea rows="5" [(ngModel)]="todo.taskDetails" name="details"></ion-textarea>
+                <ion-textarea rows="5" [(ngModel)]="todo.details" name="details"></ion-textarea>
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">Due Date</ion-label>
-                <ion-datetime display-format="MMM DD, YYYY HH:mm" [(ngModel)]="todo.dueDate" name="dueDate"></ion-datetime>
+                <ion-datetime display-format="MMM DD, YYYY HH:mm" [(ngModel)]="todo.due" name="dueDate"></ion-datetime>
             </ion-item>
         </ion-list>
     </form>

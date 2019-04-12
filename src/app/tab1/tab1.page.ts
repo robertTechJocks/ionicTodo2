@@ -19,30 +19,28 @@ export interface Task {
 })
 export class Tab1Page {
   private userDoc: AngularFirestoreDocument<Item>;
+  private tasksCollection: AngularFirestoreCollection<Task>;
 
   item: Observable<Item>;
   tasks: Observable<Task[]>;
 
     constructor(public modalController: ModalController, public afAuth: AngularFireAuth, public afs: AngularFirestore) {
       this.afAuth.user.subscribe(user => {
-        console.log(user)
         this.userDoc = afs.doc<Item>("users/"+user.uid);
         this.item = this.userDoc.valueChanges();
-        this.tasks = this.userDoc.collection<Task>('tasks').valueChanges();
-        console.log(this.tasks);
+        this.tasksCollection = this.userDoc.collection<Task>('tasks');
+        this.tasks = this.tasksCollection.valueChanges()
       });
     }
 
     async presentModal() {
       const modal = await this.modalController.create({
         component: ModalPage,
+        componentProps: { tasks: this.tasksCollection, val: "hello world" }
       });
       return await modal.present();
     }
 
-    addTask() {
-        console.log('hello world');
-    }
     login() {
       this.afAuth.auth.signInWithEmailAndPassword("robert@tech-jocks.com", "F!5eagle").catch(function(error){
         var errorCode = error.code;
